@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-info" role="alert">
+                    {% if ban %}
+                        <strong>Atención! {{ ban }}.</strong>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Nueva Categoria</h4>                
+                    </div>
+                    <div class="card-block p-3">
+                        <form method="post" class="form-horizontal" action="{{ path('update_category') }}"> 
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Codigo</label>
+                                        <input type="number" class="form-control" id="idcategory" name="idcategory" hidden="true" value="{{ category.id }}">
+                                        <input type="number" class="form-control input_no_special_character" id="codecategory" name="codecategory" value="{{ category.codecategory }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Nombre del Producto</label>
+                                        <input type="text" class="form-control" id="namecategory" name="namecategory" value="{{ category.namecategory }}"required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Descripcion</label>
+                                        <textarea type="text" class="form-control" id="description" name="description" required>{{ category.description }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-check mb-2 mr-sm-2 mb-sm-0">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" class="form-control" id="active" name="active"{% if category.active == 1 %} checked{% endif %}> Activa
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">        
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success" style="float:right">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-md" href="{{ path('categories') }}" style="float:right"><i class="fa fa-close"></i>&nbsp; Salir</a>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+   
+{% endblock %}
+

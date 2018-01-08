@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12">
+                {% if ban %}
+                    <div class="alert alert-info" role="alert">
+                        <strong>Atención! {{ ban }}.</strong>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Editar Producto</h4>                
+                    </div>
+                    <div class="card-block p-3">
+                        <form method="post" class="form-horizontal" action="{{ path('update_product') }}" id="form"> 
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Codigo</label>
+                                        <input type="int" class="form-control input_no_special_character" id="idproduct" name="idproduct" hidden="true" value="{{ product.id }}">
+                                        <input type="text" class="form-control" id="codeproduct" name="codeproduct" value="{{ product.codeproduct }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label>Nombre del Producto</label>
+                                        <input type="text" class="form-control" id="nameproduct" name="nameproduct" value="{{ product.nameproduct }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>Descripcion</label>
+                                        <textarea type="text" class="form-control" form="form" id="description" name="description" required>{{ product.description }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Marca</label>
+                                        <input type="text" class="form-control" id="brand" name="brand" value="{{ product.brand }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">  
+                                    <div class="form-group">                           
+                                        <label>Categoria</label>
+                                        <select class="form-control" id="category" name="category" required>
+                                            {% for category in categories %}          
+                                                <option value="{{ product.category.id }}">{{ product.category.namecategory }}</option>
+                                            {% endfor %}             
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Precio</label>
+                                        <input type="text" class="form-control input_number_float" id="price" name="price" value="{{ product.price }}" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">        
+                                <div class="col-sm-12">
+                                    <button type="submit" class="btn btn-success" style="float:right">Guardar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary btn-md" href="{{ path('products') }}" style="float:right"><i class="fa fa-close"></i>&nbsp; Salir</a>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+   
+{% endblock %}
+

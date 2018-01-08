@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+      <h2>PRUEBA CRUD</h2> 
+      <p>En esta prueba se realizaron dos CRUD (create, read, update, delete): Uno de productos y otro de categorías de productos en PHP, utilizando el Framework Symfony en su versión 3.4 con una una Base de Datos en Mysql.</p> 
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-center">
+                <h3>Productos</h3><br>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('products') }}"><i class="fa fa-star"></i>&nbsp;Productos</a>
+                </p>
+            </div>
+            <div class="col-sm-6 text-center">
+                <h3>Categorias</h3><br>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('categories') }}"><i class="fa fa-star"></i>&nbsp;Categorias</a>  
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}
+

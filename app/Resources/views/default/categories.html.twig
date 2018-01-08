@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Crear</h3>                
+                    </div>
+                    <div class="card-block p-3">
+                        <div class="col-sm-12">
+                            <a class="btn btn-primary btn-md" href="{{ path('new_category') }}"><i class="fa fa-star"></i>&nbsp;Categoria</a>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Menu Principal</h3>                
+                    </div>
+                    <div class="card-block p-3">
+                        <div class="col-sm-12">
+                            <a class="btn btn-primary btn-md" href="{{ path('homepage') }}"><i class="fa fa-repeat"></i>&nbsp; Inicio</a>
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Categorias</h3>
+                    </div>
+                    <div class="card-body">
+                        <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Codigo</th>
+                                    <th>Categoria</th>
+                                    <th>Descripcion</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if categories %}
+                                    {% for category in categories %}
+                                        <tr>
+                                            <td>{{ category.codecategory }}</td>
+                                            <td>{{ category.namecategory }}</td>
+                                            <td>{{ category.description }}</td>
+                                            <td>{% if category.active == 1 %}Activo{% else %}Inactivo{% endif %}</td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm" onclick=window.location.href='{{ path('edit_category', {idcategory:category.id}) }}'><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-info btn-sm btn-cambio" data-idcategory="{{ category.id }}" data-toggle="modal" data-target="#myModal1"><i class="fa fa-circle"></i></button>
+                                                <button class="btn btn-danger btn-sm btn-cambio" data-idcategory="{{ category.id }}" data-toggle="modal" data-target="#myModal2"><i class="fa fa-circle-o"></i></button>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block modals %}
+    <div class="modal fade" id="myModal1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Activar Categoria</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>                
+              </div>
+              <div class="modal-body">
+                <p>Esta seguro de activar la categoria?</p>
+              </div>
+              <div class="modal-footer">
+                <form method="post" action="{{ path('active_category') }}">
+                    <input hidden="true" name="idcategory" id="id_category1">
+                    <button type="submit" class="btn btn-default" id="modal-btn-cambio">Aceptar</button>
+                </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Desactivar Categoria</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>                
+              </div>
+              <div class="modal-body">
+                <p>Esta seguro de desactivar la categoria?</p>
+              </div>
+              <div class="modal-footer">
+                <form method="post" action="{{ path('deactivate_category') }}">
+                    <input hidden="true" name="idcategory" id="id_category2">
+                    <button type="submit" class="btn btn-default" id="modal-btn-cambio">Aceptar</button>
+                </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function(){            
+            $('#table').DataTable({
+                "paging":   true,
+                "ordering": true,
+                "info":     false,
+                "scrollY": true,
+                "scrollX": false,
+                "scrollCollapse": true,
+                "searching": true,  
+                "language": {                    
+                  "zeroRecords": "Vacio",
+                  "emptyTable": "No hay disponibles",
+                  "search": "Buscar",
+                  "infoEmpty": "Sin paginas",
+                  "lengthMenu":     "Mostrar _MENU_ resultados",
+                  "paginate": {
+                    "first":      "Primera",
+                    "last":       "Ultima",
+                    "next":       "Siguiente",
+                    "previous":   "Anterior"
+                  }
+                }          
+            });
+        });
+
+        $(".btn-cambio").click(function(){
+            $("#id_category1").val($(this).attr("data-idcategory"));
+            $("#id_category2").val($(this).attr("data-idcategory"));
+        });  
+    </script>
+{% endblock %}
+
